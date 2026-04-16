@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Mail, Github, ArrowUpRight } from 'lucide-react';
+import Logo from './Logo';
 
 export default function ContactFooter() {
   const currentYear = new Date().getFullYear();
@@ -66,9 +67,9 @@ export default function ContactFooter() {
         </div>
 
         <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex items-center gap-2">
-            <span className="text-xl font-heading italic text-white tracking-tighter">SAFIN</span>
-            <span className="text-white/20 text-xs font-body ml-4">© {currentYear} Ahsanul Habib Safin. All rights reserved.</span>
+          <div className="flex items-center gap-6">
+            <Logo className="text-white scale-75 origin-left" />
+            <span className="text-white/20 text-xs font-body">© {currentYear} Ahsanul Habib Safin. All rights reserved.</span>
           </div>
 
           <div className="flex items-center gap-8">

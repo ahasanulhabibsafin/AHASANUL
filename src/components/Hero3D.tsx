@@ -37,7 +37,7 @@ export default function Hero3D() {
             className="inline-block liquid-glass rounded-full px-4 py-1 mb-8"
           >
             <span className="text-[10px] uppercase tracking-[0.2em] font-body font-medium text-white/80">
-              SAFIN · Scrollytelling Portfolio
+              AHASANUL HABIB SAFIN · Scrollytelling Portfolio
             </span>
           </motion.div>
 

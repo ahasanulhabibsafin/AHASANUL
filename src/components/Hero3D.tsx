@@ -11,11 +11,36 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero3D() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const h1Ref = useRef<HTMLHeadingElement>(null);
   const [bgVideo, setBgVideo] = useState("");
 
   useEffect(() => {
     setBgVideo(getRandomVideo());
   }, []);
+
+  useGSAP(() => {
+    if (!h1Ref.current) return;
+
+    gsap.to(h1Ref.current, {
+      opacity: 0.5,
+      y: -20,
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      }
+    });
+
+    // Subtle shimmer effect
+    gsap.to(h1Ref.current, {
+      filter: 'brightness(1.2) drop-shadow(0 0 10px rgba(255,255,255,0.2))',
+      repeat: -1,
+      yoyo: true,
+      duration: 2,
+      ease: 'sine.inOut'
+    });
+  }, { scope: containerRef });
 
   return (
     <section id="hero" ref={containerRef} className="relative h-screen w-full bg-black overflow-hidden">
@@ -51,9 +76,18 @@ export default function Hero3D() {
           </motion.div>
 
           <motion.h1
+            ref={h1Ref}
             initial={{ opacity: 0, y: 30, filter: 'blur(20px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 1.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            animate={{ 
+              opacity: [0, 1],
+              y: 0, 
+              filter: ['blur(20px)', 'blur(0px)'],
+            }}
+            transition={{ 
+              duration: 2, 
+              delay: 0.4, 
+              ease: [0.16, 1, 0.3, 1],
+            }}
             className="text-white mb-16"
             style={{ 
               fontFamily: '"Instrument Serif", serif', 
@@ -64,7 +98,7 @@ export default function Hero3D() {
               fontStyle: 'italic'
             }}
           >
-            Digital <br /> Archetype
+            IT'S ME <br /> AHASANUL
           </motion.h1>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-end">

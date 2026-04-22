@@ -1,80 +1,113 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import '@google/model-viewer';
 import { ArrowUpRight } from 'lucide-react';
+import { getRandomVideo } from '@/constants';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero3D() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [bgVideo, setBgVideo] = useState("");
+
+  useEffect(() => {
+    setBgVideo(getRandomVideo());
+  }, []);
 
   return (
     <section id="hero" ref={containerRef} className="relative h-screen w-full bg-black overflow-hidden">
       <div className="h-full w-full flex items-center justify-center">
         {/* Background Video */}
         <div className="absolute inset-0 z-0">
-          <video 
-            autoPlay 
-            muted 
-            loop 
-            playsInline
-            className="w-full h-full object-cover opacity-60"
-          >
-            <source src="https://res.cloudinary.com/dpu456bh7/video/upload/v1776193720/nlyto99nwgwboy7dh8vw.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
+          {bgVideo && (
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              key={bgVideo}
+              className="w-full h-full object-cover opacity-50"
+            >
+              <source src={bgVideo} type="video/mp4" />
+            </video>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
         </div>
 
         {/* Content Overlay */}
-        <div className="relative z-20 text-center px-6 max-w-4xl">
+        <div className="relative z-20 text-center px-6 max-w-6xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="inline-block liquid-glass rounded-full px-4 py-1 mb-8"
+            initial={{ opacity: 0, letterSpacing: '0.1em' }}
+            animate={{ opacity: 1, letterSpacing: '0.4em' }}
+            transition={{ duration: 1.5, delay: 0.2 }}
+            className="inline-block mb-12"
           >
-            <span className="text-[10px] uppercase tracking-[0.2em] font-body font-medium text-white/80">
-              AHASANUL HABIB SAFIN · Scrollytelling Portfolio
+            <span className="text-[10px] md:text-[11px] uppercase font-body font-semibold text-white/50 border-b border-white/20 pb-2">
+              AHASANUL HABIB SAFIN — EST. 2026
             </span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, filter: 'blur(10px)', y: 40 }}
-            animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-            transition={{ duration: 1.2, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="italic text-white tracking-tight mb-8"
-            style={{ fontFamily: 'Georgia', fontSize: '58px', lineHeight: '57.8px' }}
+            initial={{ opacity: 0, y: 30, filter: 'blur(20px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 1.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="text-white mb-16"
+            style={{ 
+              fontFamily: '"Instrument Serif", serif', 
+              fontSize: 'clamp(3.5rem, 18vw, 12rem)', 
+              lineHeight: '0.85',
+              letterSpacing: '-0.05em',
+              fontWeight: '400',
+              fontStyle: 'italic'
+            }}
           >
-            Building smart, modern, and visually powerful digital experiences.
+            Digital <br /> Archetype
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.6 }}
-            transition={{ duration: 1, delay: 1.2 }}
-            className="text-white/60 font-body font-light text-base md:text-lg max-w-xl mx-auto mb-12"
-          >
-            Ahsanul Habib Safin — Web Developer & Graphic Designer based in Bangladesh.
-          </motion.p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-end">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 1.2 }}
+              className="text-left hidden md:block"
+            >
+              <span className="text-[10px] text-white/30 uppercase tracking-widest block mb-4">Core Philosophy</span>
+              <p className="text-white/60 font-body font-light text-xs leading-relaxed italic">
+                "Simple is not minimal. Simple is the removal of the redundant."
+              </p>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 1.5 }}
-            className="flex flex-col md:flex-row items-center justify-center gap-6"
-          >
-            <button className="liquid-glass-strong rounded-full px-8 py-4 text-white flex items-center gap-2 group transition-transform hover:scale-105">
-              Begin Journey
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </button>
-            <div className="flex items-center gap-2 text-white/40 text-xs font-body tracking-wider uppercase">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              📍 Dhaka, Bangladesh · 17 · Student (SSC 2026)
-            </div>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1 }}
+              className="flex flex-col items-center gap-8"
+            >
+              <button className="liquid-glass-strong group relative flex items-center justify-center overflow-hidden rounded-full px-12 py-6 transition-all hover:scale-105 active:scale-95 bg-white text-black font-semibold">
+                <span className="relative z-10 text-xs tracking-widest uppercase">Explore Portfolio</span>
+              </button>
+              
+              <div className="flex items-center gap-3 text-white/30 text-[9px] tracking-[0.3em] font-medium uppercase">
+                 <div className="w-1 h-1 rounded-full bg-green-400" />
+                 DHAKA, BANGLADESH
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 1.2 }}
+              className="text-right hidden md:block"
+            >
+              <span className="text-[10px] text-white/30 uppercase tracking-widest block mb-4">Availability</span>
+              <p className="text-white/60 font-body font-light text-xs leading-relaxed">
+                Currently open to freelance <br /> opportunities and collaborations.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

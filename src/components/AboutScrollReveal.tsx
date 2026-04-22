@@ -1,14 +1,20 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import { getRandomVideo } from '@/constants';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutScrollReveal() {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const [bgVideo, setBgVideo] = useState("");
+
+  useEffect(() => {
+    setBgVideo(getRandomVideo());
+  }, []);
 
   useGSAP(() => {
     const chars = textRef.current?.querySelectorAll('.reveal-text');
@@ -37,15 +43,18 @@ export default function AboutScrollReveal() {
     <section id="about" ref={containerRef} className="relative h-screen w-full bg-black overflow-hidden">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          className="w-full h-full object-cover opacity-20 grayscale"
-        >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-typing-on-a-laptop-keyboard-in-a-dark-room-42732-large.mp4" type="video/mp4" />
-        </video>
+        {bgVideo && (
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            key={bgVideo}
+            className="w-full h-full object-cover opacity-20 grayscale"
+          >
+            <source src={bgVideo} type="video/mp4" />
+          </video>
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
       </div>
 

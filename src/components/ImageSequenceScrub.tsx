@@ -1,15 +1,21 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
+import { getRandomVideo } from '@/constants';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ImageSequenceScrub() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+  const [bgVideo, setBgVideo] = useState("");
+
+  useEffect(() => {
+    setBgVideo(getRandomVideo());
+  }, []);
 
   useGSAP(() => {
     ScrollTrigger.create({
@@ -56,15 +62,18 @@ export default function ImageSequenceScrub() {
     >
       {/* Background Video */}
       <div className="fixed top-0 left-0 w-full h-screen z-0">
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          className="w-full h-full object-cover opacity-60"
-        >
-          <source src="https://res.cloudinary.com/dpu456bh7/video/upload/v1776260452/jgo4js1hvmupfo01biiq.mp4" type="video/mp4" />
-        </video>
+        {bgVideo && (
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            key={bgVideo}
+            className="w-full h-full object-cover opacity-60"
+          >
+            <source src={bgVideo} type="video/mp4" />
+          </video>
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40" />
       </div>
 

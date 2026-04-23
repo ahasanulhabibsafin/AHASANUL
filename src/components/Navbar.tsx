@@ -24,9 +24,17 @@ export default function Navbar() {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="fixed top-4 left-0 right-0 z-50 px-8 lg:px-16 py-3 flex items-center justify-between pointer-events-none"
     >
-      <div className="flex items-center gap-2 pointer-events-auto">
+      <motion.div 
+        animate={{ 
+          opacity: hidden ? 0 : 1,
+          x: hidden ? -20 : 0,
+          scale: hidden ? 0.95 : 1
+        }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        className="flex items-center gap-2 pointer-events-auto"
+      >
         <Logo className="text-white" />
-      </div>
+      </motion.div>
 
       <motion.div 
         animate={{ 
@@ -37,7 +45,7 @@ export default function Navbar() {
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className="hidden md:flex items-center gap-1.5 liquid-glass rounded-full px-1.5 py-1 pointer-events-auto"
       >
-        {['About', 'Work', '3D Lab', 'Contact'].map((item) => (
+        {['About', 'Work', 'Lab 3D', 'Contact'].map((item) => (
           <a 
             key={item} 
             href={`#${item.toLowerCase().replace(' ', '-')}`}

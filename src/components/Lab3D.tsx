@@ -39,7 +39,7 @@ export default function Lab3D() {
   }, { scope: containerRef });
 
   return (
-    <section id="3d-lab" ref={containerRef} className="relative h-screen w-full bg-black overflow-hidden">
+    <section id="lab-3d" ref={containerRef} className="relative h-screen w-full bg-black overflow-hidden">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
         {bgVideo && (

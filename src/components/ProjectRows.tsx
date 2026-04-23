@@ -60,14 +60,20 @@ function ProjectRow(props: { project: typeof projects[0], index: number, key?: R
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="flex-1 w-full aspect-[4/3] rounded-3xl overflow-hidden liquid-glass group"
+        className="flex-1 w-full aspect-[4/3] rounded-3xl overflow-hidden liquid-glass group relative"
       >
         <img 
           src={project.image} 
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
           referrerPolicy="no-referrer"
         />
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-sm">
+          <button className="liquid-glass-strong rounded-full px-8 py-4 text-white flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            View Project
+            <ArrowUpRight className="w-4 h-4" />
+          </button>
+        </div>
       </motion.div>
     </div>
   );

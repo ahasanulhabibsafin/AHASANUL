@@ -29,8 +29,8 @@ const skills = [
   }
 ];
 
-function SkillCard(props: { skill: typeof skills[0], key?: React.Key }) {
-  const { skill } = props;
+function SkillCard(props: { skill: typeof skills[0], index: number, key?: React.Key }) {
+  const { skill, index } = props;
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -59,6 +59,14 @@ function SkillCard(props: { skill: typeof skills[0], key?: React.Key }) {
 
   return (
     <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ 
+        duration: 0.8, 
+        delay: index * 0.1,
+        ease: [0.16, 1, 0.3, 1] 
+      }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -112,7 +120,7 @@ export default function SkillsParallax() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {skills.map((skill, index) => (
-            <SkillCard key={index} skill={skill} />
+            <SkillCard key={index} skill={skill} index={index} />
           ))}
         </div>
       </div>

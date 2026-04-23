@@ -10,6 +10,8 @@ gsap.registerPlugin(ScrollTrigger);
 export default function AboutScrollReveal() {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const [bgVideo, setBgVideo] = useState("");
 
   useEffect(() => {
@@ -30,13 +32,30 @@ export default function AboutScrollReveal() {
       }
     });
 
+    // Parallax effect for the video
+    if (videoRef.current) {
+      tl.to(videoRef.current, {
+        yPercent: 15,
+        scale: 1.1,
+        ease: 'none'
+      }, 0);
+    }
+
+    // Parallax effect for the heading (moves slower/different rate than video)
+    if (headingRef.current) {
+      tl.to(headingRef.current, {
+        y: -40,
+        ease: 'none'
+      }, 0);
+    }
+
     tl.from(chars, {
       opacity: 0.1,
       y: 20,
       stagger: 0.1,
       duration: 1,
       ease: 'power2.out'
-    });
+    }, 0);
   }, { scope: containerRef });
 
   return (
@@ -45,12 +64,13 @@ export default function AboutScrollReveal() {
       <div className="absolute inset-0 z-0">
         {bgVideo && (
           <video 
+            ref={videoRef}
             autoPlay 
             muted 
             loop 
             playsInline
             key={bgVideo}
-            className="w-full h-full object-cover opacity-20 grayscale"
+            className="w-full h-full object-cover opacity-20 grayscale scale-110"
           >
             <source src={bgVideo} type="video/mp4" />
           </video>
@@ -58,7 +78,7 @@ export default function AboutScrollReveal() {
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
       </div>
 
-      <div className="relative z-10 h-full flex flex-col items-center justify-center px-8 lg:px-32">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-8 lg:px-32 overflow-x-auto max-w-full">
         <div className="max-w-5xl">
           <div className="liquid-glass rounded-full px-4 py-1 mb-8 w-fit">
             <span className="text-[10px] uppercase tracking-[0.2em] font-body font-medium text-white/80">
@@ -66,7 +86,7 @@ export default function AboutScrollReveal() {
             </span>
           </div>
 
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading italic text-white tracking-tight leading-[0.9] mb-12">
+          <h2 ref={headingRef} className="text-4xl md:text-6xl lg:text-7xl font-heading italic text-white tracking-tight leading-[0.9] mb-12">
             Creativity meets functionality.
           </h2>
 

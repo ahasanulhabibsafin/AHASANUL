@@ -45,7 +45,7 @@ export default function Navbar() {
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className="hidden md:flex items-center gap-1.5 liquid-glass rounded-full px-1.5 py-1 pointer-events-auto"
       >
-        {['About', 'Work', 'Lab 3D', 'Contact'].map((item) => (
+        {['About', 'Work', 'Insights', 'Lab 3D', 'Contact'].map((item) => (
           <a 
             key={item} 
             href={`#${item.toLowerCase().replace(' ', '-')}`}

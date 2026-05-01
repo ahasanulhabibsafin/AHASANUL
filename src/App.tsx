@@ -6,9 +6,11 @@ import ImageSequenceScrub from './components/ImageSequenceScrub';
 import SkillsParallax from './components/SkillsParallax';
 import Lab3D from './components/Lab3D';
 import ProjectRows from './components/ProjectRows';
+import ProjectDeepDive from './components/ProjectDeepDive';
 import StatsParticles from './components/StatsParticles';
 import ContactFooter from './components/ContactFooter';
 import BottomVideo from './components/BottomVideo';
+import AudioPlayer from './components/AudioPlayer';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -43,9 +45,11 @@ export default function App() {
         <SkillsParallax />
         <Lab3D />
         <ProjectRows />
+        <ProjectDeepDive />
         <StatsParticles />
         <ContactFooter />
         <BottomVideo />
+        <AudioPlayer />
       </main>
     </div>
   );
